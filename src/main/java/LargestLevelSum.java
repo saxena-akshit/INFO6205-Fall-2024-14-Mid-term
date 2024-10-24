@@ -2,6 +2,23 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class LargestLevelSum {
+    // Example:
+    // Given the following binary tree:
+    //        1
+    //      /   \
+    //     2     3
+    //    / \   / \
+    //   4   5 6   7
+    //
+    // Level 0: 1                    -> sum = 1
+    // Level 1: 2 + 3                -> sum = 5
+    // Level 2: 4 + 5 + 6 + 7        -> sum = 22
+    //
+    // The maximum level sum is 22.
+    //
+    // You need to traverse each level of the tree, calculate the sum of the values
+    // at that level, and keep track of the maximum sum encountered.
+
     /**
      * Finds the maximum level sum in a binary tree.
      *
@@ -9,18 +26,17 @@ public class LargestLevelSum {
      * @return the largest sum of any level in the tree
      */
     public static int maxLevelSum(TreeNode root) {
-        //TO BE IMPLEMENTED
-
+        // TODO: Implement the logic to find the maximum level sum of the given binary tree.
         Queue<TreeNode> queue = new LinkedList<>();
-        
-        
+
         while (!queue.isEmpty()) {
-           //TO BE IMPLEMENTED
-          
+            //TODO: Logic to process nodes at the current level will go here.
         }
 
+        //TODO: Placeholder to return the max level sum; replace 0 with the correct value.
         return 0;
     }
+
 
     /**
      * Builds a binary tree from a level-order traversal array.
@@ -28,36 +44,42 @@ public class LargestLevelSum {
      * @param levelOrder the level-order traversal array
      * @return the root of the constructed binary tree
      */
-    public static TreeNode buildTreeFromLevelOrder(int[] levelOrder) {
-        // If the array is empty, return null (no tree)
+    public static TreeNode buildTreeFromLevelOrder(Integer[] levelOrder) {
+
         if (levelOrder == null || levelOrder.length == 0) {
             return null;
         }
 
-        TreeNode root = new TreeNode(levelOrder[0]);
+
+        TreeNode root = (levelOrder[0] != null) ? new TreeNode(levelOrder[0]) : null;
+
+        if (root == null) return null;
 
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
 
-        int i = 1;  
+        int i = 1;
 
         while (i < levelOrder.length) {
             TreeNode currentNode = queue.poll();
 
-            if (i < levelOrder.length) {
-                currentNode.left = new TreeNode(levelOrder[i]);
-                queue.add(currentNode.left);  
-                i++;
-            }
 
-            if (i < levelOrder.length) {
-                currentNode.right = new TreeNode(levelOrder[i]);
-                queue.add(currentNode.right);  //
-                i++;
+            if (levelOrder[i] != null) {
+                assert currentNode != null;
+                currentNode.left = new TreeNode(levelOrder[i]);
+                queue.add(currentNode.left);
             }
+            i++;
+
+
+            if (i < levelOrder.length && levelOrder[i] != null) {
+                assert currentNode != null;
+                currentNode.right = new TreeNode(levelOrder[i]);
+                queue.add(currentNode.right);
+            }
+            i++;
         }
 
-        return root;  // Return the constructed tree's root
+        return root;
     }
-
 }
